@@ -15,6 +15,7 @@ class InnerPost extends StatelessWidget {
       flex: 8,
       child: Container(
         // color: Colors.green,
+        padding: const EdgeInsets.symmetric(horizontal: 10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [

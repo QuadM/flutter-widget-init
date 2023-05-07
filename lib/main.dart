@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:init_widgets/models/SG_feed_model.dart';
+import 'package:init_widgets/stubs/r_multi_image_thread_stub.dart';
 import 'package:init_widgets/stubs/r_post_stub.dart';
+import 'package:init_widgets/widgets/r_bottom_sheet_feed.dart';
 import 'package:init_widgets/widgets/r_single_photo_view.dart';
 
 void main() {
@@ -52,6 +54,11 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  List<MediaData> images = [
+    "https://media-cdn.tripadvisor.com/media/photo-s/03/9b/2f/5b/cairo.jpg",
+    "https://media.istockphoto.com/id/1174818077/photo/mosque-and-pyramids.jpg?s=612x612&w=0&k=20&c=kewLXiirLBe_QOeAQ2MPNFk8S4oxcTFt0AMPQ4mAXKY=",
+    "https://media.gettyimages.com/id/1306141437/photo/woman-standing-on-the-terrace-on-the-background-of-giza-pyramids.jpg?s=612x612&w=gi&k=20&c=Li9m0ly1X8KlWxsQuwWAkM1ihxcELqRCNW8kGk904PI="
+  ].map((element) => MediaData(contentUrl: element)).toList();
 
   void _incrementCounter() {
     setState(() {
@@ -73,90 +80,91 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+      body:
+          // NewsFeedSwipable()
+          MultiImageThreadStub(
+        dateTime: DateTime.utc(2023, 3, 1),
+        profileImageUrl:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1T8oQ2DjIgx7SR9_bZ6eDEHKKaRAEMAFzeH_onFjtfw&s",
+        username: 'John Doe',
+        textContent: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        images: const [
+          "https://images.ctfassets.net/hrltx12pl8hq/a2hkMAaruSQ8haQZ4rBL9/8ff4a6f289b9ca3f4e6474f29793a74a/nature-image-for-website.jpg?fit=fill&w=480&h=320",
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1T8oQ2DjIgx7SR9_bZ6eDEHKKaRAEMAFzeH_onFjtfw&s",
+          "https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aHVtYW58ZW58MHx8MHx8&w=1000&q=80",
+          // "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1T8oQ2DjIgx7SR9_bZ6eDEHKKaRAEMAFzeH_onFjtfw&s",
+          // "https://media.istockphoto.com/id/1146517111/photo/taj-mahal-mausoleum-in-agra.jpg?s=612x612&w=0&k=20&c=vcIjhwUrNyjoKbGbAQ5sOcEzDUgOfCsm9ySmJ8gNeRk="
+        ],
       ),
-      body: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            children: [
-              SinglePhotoViewer(),
-              Container(
-                  color: Colors.white, height: 300, child: Text("Hello world"))
-            ],
-          ),
-          // Center is a layout widget. It takes a single child and positions it
-          // in the middle of the parent.
-          // child: Column(
-          //   mainAxisAlignment: MainAxisAlignment.center,
-          //   // ignore: prefer_const_literals_to_create_immutables
-          //   children: <Widget>[
-          //     PostStub(
-          //       dateTime: DateTime.utc(2023, 3, 1),
-          //       profileImageUrl:
-          //           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1T8oQ2DjIgx7SR9_bZ6eDEHKKaRAEMAFzeH_onFjtfw&s",
-          //       username: 'John Doe',
-          //       textContent:
-          //           'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-          //       images: [
-          //         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1T8oQ2DjIgx7SR9_bZ6eDEHKKaRAEMAFzeH_onFjtfw&s",
-          //         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1T8oQ2DjIgx7SR9_bZ6eDEHKKaRAEMAFzeH_onFjtfw&s",
-          //         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1T8oQ2DjIgx7SR9_bZ6eDEHKKaRAEMAFzeH_onFjtfw&s",
-          //         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1T8oQ2DjIgx7SR9_bZ6eDEHKKaRAEMAFzeH_onFjtfw&s",
-          //         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1T8oQ2DjIgx7SR9_bZ6eDEHKKaRAEMAFzeH_onFjtfw&s",
-          //         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1T8oQ2DjIgx7SR9_bZ6eDEHKKaRAEMAFzeH_onFjtfw&s",
-          //         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1T8oQ2DjIgx7SR9_bZ6eDEHKKaRAEMAFzeH_onFjtfw&s",
-          //         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1T8oQ2DjIgx7SR9_bZ6eDEHKKaRAEMAFzeH_onFjtfw&s",
-          //         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1T8oQ2DjIgx7SR9_bZ6eDEHKKaRAEMAFzeH_onFjtfw&s",
-          //       ],
-          //     ),
-          //     PostStub(
-          //       dateTime: DateTime.utc(2023, 2, 28),
-          //       profileImageUrl:
-          //           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1T8oQ2DjIgx7SR9_bZ6eDEHKKaRAEMAFzeH_onFjtfw&s",
-          //       username: 'John Doe',
-          //       textContent:
-          //           "Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.                    ",
-          //       images: [
-          //         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1T8oQ2DjIgx7SR9_bZ6eDEHKKaRAEMAFzeH_onFjtfw&s",
-          //         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1T8oQ2DjIgx7SR9_bZ6eDEHKKaRAEMAFzeH_onFjtfw&s",
-          //       ],
-          //     ),
-          //     PostStub(
-          //       dateTime: DateTime.now(),
-          //       profileImageUrl:
-          //           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1T8oQ2DjIgx7SR9_bZ6eDEHKKaRAEMAFzeH_onFjtfw&s",
-          //       username: 'John Doe',
-          //       textContent:
-          //           'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-          //       images: [
-          //         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1T8oQ2DjIgx7SR9_bZ6eDEHKKaRAEMAFzeH_onFjtfw&s",
-          //       ],
-          //     ),
-          //     PostStub(
-          //       dateTime: DateTime.utc(1999, 1),
-          //       profileImageUrl:
-          //           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1T8oQ2DjIgx7SR9_bZ6eDEHKKaRAEMAFzeH_onFjtfw&s",
-          //       username: 'John Doe',
-          //       textContent:
-          //           'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-          //       images: [
-          //         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1T8oQ2DjIgx7SR9_bZ6eDEHKKaRAEMAFzeH_onFjtfw&s",
-          //         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1T8oQ2DjIgx7SR9_bZ6eDEHKKaRAEMAFzeH_onFjtfw&s",
-          //         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1T8oQ2DjIgx7SR9_bZ6eDEHKKaRAEMAFzeH_onFjtfw&s",
-          //       ],
-          //     ),
-          //   ],
-          // ),
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+
+      //   SingleChildScrollView(
+      // child: Center(
+      //   child: Column(
+      //     mainAxisAlignment: MainAxisAlignment.center,
+      //     // ignore: prefer_const_literals_to_create_immutables
+      //     children: <Widget>[
+      //       PostStub(
+      //         dateTime: DateTime.utc(2023, 3, 1),
+      //         profileImageUrl:
+      //             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1T8oQ2DjIgx7SR9_bZ6eDEHKKaRAEMAFzeH_onFjtfw&s",
+      //         username: 'John Doe',
+      //         textContent:
+      //             'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      //         images: [
+      //           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1T8oQ2DjIgx7SR9_bZ6eDEHKKaRAEMAFzeH_onFjtfw&s",
+      //           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1T8oQ2DjIgx7SR9_bZ6eDEHKKaRAEMAFzeH_onFjtfw&s",
+      //           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1T8oQ2DjIgx7SR9_bZ6eDEHKKaRAEMAFzeH_onFjtfw&s",
+      //           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1T8oQ2DjIgx7SR9_bZ6eDEHKKaRAEMAFzeH_onFjtfw&s",
+      //           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1T8oQ2DjIgx7SR9_bZ6eDEHKKaRAEMAFzeH_onFjtfw&s",
+      //           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1T8oQ2DjIgx7SR9_bZ6eDEHKKaRAEMAFzeH_onFjtfw&s",
+      //           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1T8oQ2DjIgx7SR9_bZ6eDEHKKaRAEMAFzeH_onFjtfw&s",
+      //           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1T8oQ2DjIgx7SR9_bZ6eDEHKKaRAEMAFzeH_onFjtfw&s",
+      //           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1T8oQ2DjIgx7SR9_bZ6eDEHKKaRAEMAFzeH_onFjtfw&s",
+      //         ],
+      //       ),
+      //       PostStub(
+      //         dateTime: DateTime.utc(2023, 2, 28),
+      //         profileImageUrl:
+      //             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1T8oQ2DjIgx7SR9_bZ6eDEHKKaRAEMAFzeH_onFjtfw&s",
+      //         username: 'John Doe',
+      //         textContent:
+      //             "Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.                    ",
+      //         images: [
+      //           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1T8oQ2DjIgx7SR9_bZ6eDEHKKaRAEMAFzeH_onFjtfw&s",
+      //           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1T8oQ2DjIgx7SR9_bZ6eDEHKKaRAEMAFzeH_onFjtfw&s",
+      //         ],
+      //       ),
+      //       PostStub(
+      //         dateTime: DateTime.now(),
+      //         profileImageUrl:
+      //             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1T8oQ2DjIgx7SR9_bZ6eDEHKKaRAEMAFzeH_onFjtfw&s",
+      //         username: 'John Doe',
+      //         textContent:
+      //             'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      //         images: [
+      //           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1T8oQ2DjIgx7SR9_bZ6eDEHKKaRAEMAFzeH_onFjtfw&s",
+      //         ],
+      //       ),
+      //       PostStub(
+      //         dateTime: DateTime.utc(1999, 1),
+      //         profileImageUrl:
+      //             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1T8oQ2DjIgx7SR9_bZ6eDEHKKaRAEMAFzeH_onFjtfw&s",
+      //         username: 'John Doe',
+      //         textContent:
+      //             'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      //         images: [
+      //           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1T8oQ2DjIgx7SR9_bZ6eDEHKKaRAEMAFzeH_onFjtfw&s",
+      //           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1T8oQ2DjIgx7SR9_bZ6eDEHKKaRAEMAFzeH_onFjtfw&s",
+      //           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1T8oQ2DjIgx7SR9_bZ6eDEHKKaRAEMAFzeH_onFjtfw&s",
+      //         ],
+      //       ),
+      //     ],
+      //   ),
+      //   // Center is a layout widget. It takes a single child and positions it
+      //   // in the middle of the parent.
+      // ),
+      // ),
+      // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }

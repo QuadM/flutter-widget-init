@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:init_widgets/helpers/helperMethods.dart';
 import 'package:init_widgets/models/SG_feed_model.dart';
 import 'package:init_widgets/widgets/r_inner_post.dart';
 import 'package:init_widgets/widgets/r_profile_image.dart';
@@ -11,10 +12,12 @@ class PostWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 25),
+      padding: const EdgeInsets.only(bottom: 25),
       child: Container(
-        padding: EdgeInsets.symmetric(
-            vertical: 10, horizontal: MediaQuery.of(context).size.width * 0.01),
+        padding: EdgeInsets.only(
+            top: 10,
+            right: MediaQuery.of(context).size.width * 0.01,
+            left: MediaQuery.of(context).size.width * 0.01),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5),
           color: Colors.white,
@@ -49,7 +52,31 @@ class PostWidget extends StatelessWidget {
                 const SizedBox(width: 10),
                 const Text("•"),
                 const SizedBox(width: 10),
-                Text(postData.getDate + postData.getTime),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    if (postData.getDate != "") Text(postData.getDate),
+                    Text(postData.getTime),
+                  ],
+                ),
+                const Spacer(),
+                Container(
+                  padding: const EdgeInsets.all(5),
+                  decoration: BoxDecoration(
+                    border: Border.all(width: 2.0, color: Colors.blue),
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(9999),
+                    ),
+                  ),
+                  child: const Text(
+                    "view updates",
+                    style: TextStyle(
+                        color: Colors.blue, fontWeight: FontWeight.w500),
+                  ),
+                ),
+                const SizedBox(
+                  width: 10,
+                )
               ],
             ),
             Row(
@@ -60,68 +87,12 @@ class PostWidget extends StatelessWidget {
                   postText: postData.innerPostList[0].textContent,
                   images: postData.innerPostList[0].mediaData,
                 ),
-                // Container(
-                //   color: Colors.greenAccent,
-                //   height: 300,
-                //   child: Column(
-                //     mainAxisSize: MainAxisSize.min,
-                //     children: [
-                //       const Spacer(),
-                //       InkWell(
-                //         hoverColor: Colors.black26,
-                //         onTap: () {
-                //           print("clicked upvote");
-                //         },
-                //         child: SizedBox(
-                //           width: MediaQuery.of(context).size.width * 0.1,
-                //           child: Column(
-                //             mainAxisSize: MainAxisSize.min,
-                //             mainAxisAlignment: MainAxisAlignment.center,
-                //             children: [
-                //               const Icon(Icons.arrow_upward),
-                //               Text(PostData.displayNumber(
-                //                   postData.upVotes.totalNum)),
-                //               Text("${postData.upVotes.witnessPercent}%")
-                //             ],
-                //           ),
-                //         ),
-                //       ),
-                //       const Spacer(),
-                //       Container(
-                //         height: 1,
-                //         width: MediaQuery.of(context).size.width * 0.08,
-                //         color: Colors.red,
-                //       ),
-                //       const Spacer(),
-                //       InkWell(
-                //         hoverColor: Colors.black26,
-                //         onTap: () {
-                //           print("clicked downvote");
-                //         },
-                //         child: SizedBox(
-                //           width: MediaQuery.of(context).size.width * 0.1,
-                //           child: Column(
-                //             mainAxisSize: MainAxisSize.min,
-                //             mainAxisAlignment: MainAxisAlignment.center,
-                //             children: [
-                //               const Icon(Icons.arrow_downward),
-                //               Text(PostData.displayNumber(
-                //                   postData.downVotes.totalNum)),
-                //               Text("${postData.downVotes.witnessPercent}%")
-                //             ],
-                //           ),
-                //         ),
-                //       ),
-                //       const Spacer(),
-                //     ],
-                //   ),
-                // )
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Spacer(),
+                const Spacer(),
                 InkWell(
                   hoverColor: Colors.black26,
                   onTap: () {
@@ -131,11 +102,11 @@ class PostWidget extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Icon(Icons.arrow_upward),
-                      Text(PostData.displayNumber(postData.upVotes.totalNum)),
+                      Text(displayNumber(postData.upVotes.totalNum)),
                     ],
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 InkWell(
                   hoverColor: Colors.black26,
                   onTap: () {
@@ -145,11 +116,11 @@ class PostWidget extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Icon(Icons.arrow_downward),
-                      Text(PostData.displayNumber(postData.downVotes.totalNum)),
+                      Text(displayNumber(postData.downVotes.totalNum)),
                     ],
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 InkWell(
                   onTap: (() => print("comment")),
                   child: Row(
@@ -157,11 +128,11 @@ class PostWidget extends StatelessWidget {
                     children: [
                       const Icon(Icons.mode_comment_outlined),
                       const SizedBox(width: 4.0),
-                      Text(PostData.displayNumber(postData.comments)),
+                      Text(displayNumber(postData.comments)),
                     ],
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 InkWell(
                   onTap: (() => print("share")),
                   child: Row(
@@ -169,11 +140,11 @@ class PostWidget extends StatelessWidget {
                     children: [
                       const Icon(Icons.shortcut_outlined),
                       const SizedBox(width: 4.0),
-                      Text(PostData.displayNumber(postData.shares)),
+                      Text(displayNumber(postData.shares)),
                     ],
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 InkWell(
                   onTap: (() => print("views")),
                   child: Row(
@@ -181,68 +152,73 @@ class PostWidget extends StatelessWidget {
                     children: [
                       const Icon(Icons.bar_chart_rounded),
                       const SizedBox(width: 4.0),
-                      Text(PostData.displayNumber(postData.views)),
+                      Text(displayNumber(postData.views)),
                     ],
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
               ],
             ),
-            Row(
-              children: [
-                Spacer(),
-                Row(
-                  children: [
-                    Icon(Icons.remove_red_eye_outlined),
-                    Text("10.0%"),
-                  ],
-                ),
-                Spacer(),
-                Row(
-                  children: [
-                    Icon(
-                      Icons.remove_red_eye_outlined,
-                      color: Colors.transparent,
-                    ),
-                    Text("10.0%"),
-                  ],
-                ),
-                Spacer(),
-                Row(
-                  children: [
-                    Icon(
-                      Icons.remove_red_eye_outlined,
-                      color: Colors.transparent,
-                    ),
-                    Text("10.0%"),
-                  ],
-                ),
-                Spacer(),
-                Row(
-                  children: [
-                    Icon(
-                      Icons.remove_red_eye_outlined,
-                      color: Colors.transparent,
-                    ),
-                    Icon(
-                      Icons.remove_red_eye_outlined,
-                      color: Colors.transparent,
-                    ),
-                  ],
-                ),
-                Spacer(),
-                Row(
-                  children: [
-                    Icon(Icons.remove_red_eye_outlined,
-                        color: Colors.transparent),
-                    Icon(Icons.remove_red_eye_outlined,
-                        color: Colors.transparent),
-                    Icon(Icons.remove_red_eye_outlined,
-                        color: Colors.transparent),
-                  ],
-                ),
-                Spacer(),
-              ],
+            Container(
+              color: Colors.blue.shade50,
+              child: Row(
+                children: [
+                  const Spacer(),
+                  Row(
+                    children: const [
+                      Icon(
+                        Icons.remove_red_eye_outlined,
+                        color: Colors.transparent,
+                      ),
+                      Text("10.0%"),
+                    ],
+                  ),
+                  const Spacer(),
+                  Row(
+                    children: const [
+                      Icon(
+                        Icons.remove_red_eye_outlined,
+                        color: Colors.transparent,
+                      ),
+                      Text("10.0%"),
+                    ],
+                  ),
+                  const Spacer(),
+                  Row(
+                    children: const [
+                      Icon(
+                        Icons.remove_red_eye_outlined,
+                        color: Colors.transparent,
+                      ),
+                      Text("10.0%"),
+                    ],
+                  ),
+                  const Spacer(),
+                  Row(
+                    children: const [
+                      Icon(
+                        Icons.remove_red_eye_outlined,
+                        color: Colors.transparent,
+                      ),
+                      Icon(
+                        Icons.remove_red_eye_outlined,
+                        color: Colors.transparent,
+                      ),
+                    ],
+                  ),
+                  const Spacer(),
+                  Row(
+                    children: const [
+                      Icon(Icons.remove_red_eye_outlined,
+                          color: Colors.transparent),
+                      Icon(Icons.remove_red_eye_outlined, color: Colors.white),
+                      Icon(Icons.remove_red_eye_outlined,
+                          color: Colors.transparent),
+                    ],
+                  ),
+                  const Spacer(),
+                ],
+              ),
             )
           ],
         ),

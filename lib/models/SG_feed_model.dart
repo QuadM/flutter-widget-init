@@ -3,30 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
-List<String> weekdays = [
-  "Sat",
-  "Sun",
-  "Mon",
-  "Tue",
-  "Wed",
-  "Thu",
-  "Fri",
-];
-List<String> months = [
-  "Jan",
-  "Feb",
-  "Mar",
-  "Apr",
-  "May",
-  "Jun",
-  "Jul",
-  "Aug",
-  "Sep",
-  "Oct",
-  "Nov",
-  "Dec",
-];
+import 'package:init_widgets/helpers/helperMethods.dart';
 
 class PostData {
   List<PostLabel> postLabelList;
@@ -55,39 +32,25 @@ class PostData {
     this.views = 0,
   });
 
-  String get getDate {
-    if (DateTime.now().year - dateTime.year >= 1) {
-      return "${dateTime.year} ${months[dateTime.month - 1]} ${dateTime.day} • ";
-    }
-    if (DateTime.now().month - dateTime.month >= 1) {
-      return "${months[dateTime.month - 1]}  ${dateTime.day} • ";
-    }
-    return DateTime.now().weekday - dateTime.weekday >= 1
-        ? "${weekdays[dateTime.weekday]} • "
-        : "";
-  }
+  String get getDate => getDateString(dateTime);
 
-  static String displayNumber(int num) {
-    return num > 1000000000000
-        ? "${(num / 1000000000000).toStringAsFixed(1)}T"
-        : num > 1000000000
-            ? "${(num / 1000000000).toStringAsFixed(1)}B"
-            : num > 1000000
-                ? "${(num / 1000000).toStringAsFixed(1)}M"
-                : num > 1000
-                    ? "${(num / 1000).toStringAsFixed(1)}K"
-                    : num.toString();
-  }
-
-  String get getTime {
-    return "${dateTime.hour == 0 || dateTime.hour == 12 ? '12' : dateTime.hour % 12}:${dateTime.minute > 10 ? dateTime.minute : '0${dateTime.minute}'} ${dateTime.hour >= 12 ? 'PM' : 'AM'}";
-  }
+  String get getTime => getTimeString(dateTime);
 }
 
 class InnerPostData {
   String textContent;
   List<MediaData> mediaData;
   InnerPostData({this.mediaData = const [], this.textContent = ""});
+}
+
+class CommentData {
+  final int totalNum;
+  final double witnessPercent;
+  final List<CommentContent> commentContentList;
+  const CommentData(
+      {this.totalNum = 0,
+      this.witnessPercent = 0,
+      this.commentContentList = const []});
 }
 
 class Vote {
@@ -233,4 +196,63 @@ class ProfileImageModel {
       accessories: accessories,
     );
   }
+}
+
+class ThreadData {
+  List<PostLabel> postLabelList;
+  List<InnerPostData> innerPostList;
+  CommentData comments;
+  ProfileImageModel profileImageModel;
+  Vote upVotes;
+  Vote downVotes;
+  DateTime dateTime;
+  String username;
+  String hashId;
+  int shares;
+  int views;
+
+  ThreadData({
+    required this.profileImageModel,
+    this.username = "",
+    this.hashId = "",
+    required this.upVotes,
+    required this.downVotes,
+    required this.dateTime,
+    this.innerPostList = const [],
+    this.postLabelList = const [],
+    this.comments = const CommentData(),
+    this.shares = 0,
+    this.views = 0,
+  });
+
+  String get getDate => getDateString(dateTime);
+
+  String get getTime => getTimeString(dateTime);
+}
+
+class CommentContent {
+  InnerPostData innerPostData;
+  ProfileImageModel profileImageModel;
+  Vote upVotes;
+  Vote downVotes;
+  DateTime dateTime;
+  String username;
+  String hashId;
+  int views;
+  bool isWitness;
+
+  CommentContent(
+      {required this.profileImageModel,
+      required this.innerPostData,
+      this.username = "",
+      this.hashId = "",
+      required this.upVotes,
+      required this.downVotes,
+      required this.dateTime,
+      this.views = 0,
+      this.isWitness = false});
+
+  String get getDate => getDateString(dateTime);
+
+  String get getTime => getTimeString(dateTime);
 }

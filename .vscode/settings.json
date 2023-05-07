@@ -1,4 +1,20 @@
 {
   "cmake.sourceDirectory": "${workspaceFolder}/windows/flutter",
-  "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools"
+  "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true,
+    ".metadata": true,
+    "pubspec.lock": true,
+    "analysis_options.yaml": true,
+    "init_widgets.iml": true,
+    "android": true,
+    ".dart_tool": true,
+    ".idea": true,
+    "build": true
+  }
 }
